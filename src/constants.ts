@@ -41,3 +41,9 @@ export const globalStyles = {
     }
   }
 };
+
+export const Q_TYPE = {
+  SINGLE_CHOICE: "SINGLE_CHOICE",
+  MULTIPLE_CHOICE: "MULTIPLE_CHOICE",
+  OPEN_ENDED: "OPEN_ENDED",
+}

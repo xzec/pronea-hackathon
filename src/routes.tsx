@@ -8,9 +8,9 @@ const routes = [
     path: '/',
     element: <MainLayout />,
     children: [
-      { path: 'exam', element: <ExamPage /> },
+      { path: 'exam/:questionNumber', element: <ExamPage /> },
       { path: 'monitor', element: <MonitorPage /> },
-      { path: '/', element: <Navigate to="exam" /> },
+      { path: '/', element: <Navigate to="exam/1" /> },
       { path: '*', element: <Navigate to="/" /> }
     ]
   }

@@ -7,6 +7,15 @@ import typography from './typography';
 // }
 
 const theme = createTheme({
+  components: {
+    MuiOutlinedInput: {
+      styleOverrides: {
+        root: {
+          borderRadius: 10,
+        },
+      },
+    },
+  },
   palette: {
     mode: 'dark',
     primary: {

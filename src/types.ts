@@ -14,3 +14,10 @@ export interface IQuestion {
   answer?: string;
   points?: number;
 }
+
+export interface ExamEvent {
+  questionNumber: number;
+  message: string;
+  username: string;
+  createdAt: number;
+};

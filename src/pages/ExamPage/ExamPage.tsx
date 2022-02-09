@@ -65,12 +65,14 @@ const ExamPage: React.FC = () => {
     if (away) {
       console.log('away: just now');
       interval = setInterval(() => {
-        console.log("away: +3s");
-        logEvent({ message: 'mouseleave for >3000ms', questionNumber });
+        console.log('away: +3s');
+        logEvent({
+          message: 'opustil obrazovku na viac než 3 sekundy.',
+          questionNumber
+        });
         clearInterval(interval);
       }, 3000);
-    }
-    else console.log('back');
+    } else console.log('back');
     return () => clearInterval(interval);
   }, [away]);
 

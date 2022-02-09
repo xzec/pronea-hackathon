@@ -6,6 +6,7 @@ import theme from '../src/theme';
 import GlobalStyles from './components/GlobalStyles';
 import { StyledEngineProvider } from '@mui/material/styles';
 import { ExamProvider } from './contexts/ExamContext';
+import { SnackbarProvider } from './contexts/SnackbarContext';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCU0FHAVPib7mG43DSu3ZfUJmv7TWAP7JY',
@@ -26,10 +27,12 @@ const App = () => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <ExamProvider>
-          <GlobalStyles />
-          {routing}
-        </ExamProvider>
+        <SnackbarProvider>
+          <ExamProvider>
+            <GlobalStyles />
+            {routing}
+          </ExamProvider>
+        </SnackbarProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );

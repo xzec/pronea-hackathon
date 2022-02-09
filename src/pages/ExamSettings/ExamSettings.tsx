@@ -32,7 +32,7 @@ const ExamSettings: React.FC = () => {
     });
     logStudentEvent({
       message: 'Učiteľ pridal novú otázku',
-      link: `/exam/${newQuestionNumber}`,
+      link: `/exam/${newQuestionNumber + 1}`,
       actionLabel: 'Zobraziť'
     });
   };

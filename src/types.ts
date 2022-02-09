@@ -20,11 +20,11 @@ export interface ExamEvent {
   message: string;
   username: string;
   createdAt: number;
-};
+}
 
 export interface StudentEvent {
   message: string;
   link: string;
   createdAt: number;
   actionLabel: string;
-};
+}

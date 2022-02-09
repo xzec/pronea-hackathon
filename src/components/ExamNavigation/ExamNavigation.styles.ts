@@ -14,7 +14,8 @@ export const useStyles = makeStyles((theme: Theme) => ({
     top: "unset",
     flexDirection: "row",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
+    padding: theme.spacing(0, 2),
   },
   button: {
     padding: theme.spacing(1.5),

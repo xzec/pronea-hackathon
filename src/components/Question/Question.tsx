@@ -3,6 +3,7 @@ import { Box, Paper, TextField, Typography } from '@mui/material';
 import { useStyles } from './Question.styles';
 import { IOption, QType } from '../../types';
 import Options from '../Options';
+import useQuestionNumber from "../../hooks/useQuestionNumber";
 
 interface QuestionProps {
   title: string;
@@ -18,6 +19,7 @@ const Question: React.FC<QuestionProps> = ({
   points = 1
 }) => {
   const classes = useStyles();
+  const questionNumber = useQuestionNumber();
   const [answer, setAnswer] = useState<string>('');
 
   const handleAnswerChange = (event) => setAnswer(event.target.value);
@@ -26,7 +28,7 @@ const Question: React.FC<QuestionProps> = ({
     <Paper className={classes.paper}>
       <Box className={classes.heading}>
         <Typography variant="h2" component="h3" color="black">
-          {title}
+          {questionNumber}.&nbsp;{title}
         </Typography>
         <Box flexGrow={1} />
         <Typography className={classes.points}>{points}&nbsp;bod</Typography>

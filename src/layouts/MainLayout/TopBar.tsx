@@ -18,8 +18,8 @@ const TopBar = ({ className, ...rest }: TopBarProps) => {
           Testerly
         </Typography>
         <Box flexGrow={1} />
-        <TopBarLink to="/exam">Student</TopBarLink>
-        <TopBarLink to="/monitor">Teacher</TopBarLink>
+        <TopBarLink to="/exam">Študent</TopBarLink>
+        <TopBarLink to="/monitor">Učiteľ</TopBarLink>
       </Toolbar>
     </AppBar>
   );

@@ -22,7 +22,7 @@ const ExamNavigation: React.FC<ExamNavigationProps> = ({ count = 1 }) => {
     navigate(`/exam/${qNumber}`);
 
   return (
-    <AppBar className={classes.navigation} elevation={1}>
+    <AppBar className={classes.navigation} elevation={1} component="nav">
       <Button
         disabled={questionNumber <= 1}
         onClick={handleNavigateBack}

@@ -14,8 +14,8 @@ const TopBar = ({ className, ...rest }: TopBarProps) => {
   return (
     <AppBar className={className} elevation={1} {...rest}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h3" component="span" color="textPrimary">
-          Realtime Exams
+        <Typography variant="h2" component="h2" color="textPrimary">
+          Testerly
         </Typography>
         <Box flexGrow={1} />
         <TopBarLink to="/exam">Student</TopBarLink>

@@ -4,6 +4,7 @@ import routes from './routes';
 import { ThemeProvider } from '@mui/material';
 import theme from '../src/theme';
 import GlobalStyles from './components/GlobalStyles';
+import { StyledEngineProvider } from '@mui/material/styles';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCU0FHAVPib7mG43DSu3ZfUJmv7TWAP7JY',
@@ -22,10 +23,12 @@ const App = () => {
   const routing = useRoutes(routes);
 
   return (
-    <ThemeProvider theme={theme}>
-      <GlobalStyles />
-      {routing}
-    </ThemeProvider>
+    <StyledEngineProvider injectFirst>
+      <ThemeProvider theme={theme}>
+        <GlobalStyles />
+        {routing}
+      </ThemeProvider>
+    </StyledEngineProvider>
   );
 };
 

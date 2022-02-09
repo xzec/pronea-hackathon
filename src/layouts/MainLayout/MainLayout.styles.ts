@@ -27,5 +27,8 @@ export const useStyles = makeStyles(() => ({
   },
   topbar: {
     pointerEvents: 'none'
+  },
+  active: {
+    fontWeight: '700 !important'
   }
 }));

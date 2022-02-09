@@ -1,55 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import Question from '../../components/Question';
 import Content from '../../components/Content';
-import { IQuestion } from '../../types';
 import useQuestionNumber from '../../hooks/useQuestionNumber';
 import ExamNavigation from '../../components/ExamNavigation';
 import logEvent from '../../logEvent';
-
-const questions: IQuestion[] = [
-  {
-    title: 'Kedy začala 1. svetová vojna?',
-    type: 'SINGLE_CHOICE',
-    options: [
-      {
-        value: '1912',
-        correct: false
-      },
-      {
-        value: '1913',
-        correct: false
-      },
-      {
-        value: '1914',
-        correct: true
-      },
-      {
-        value: '1915',
-        correct: false
-      }
-    ]
-  },
-  {
-    title: 'Popíšte vzťahy medzi Winstonom Churchillom a Kráľom Jurajom VI.',
-    type: 'OPEN_ENDED'
-  },
-  {
-    title: 'A',
-    type: 'OPEN_ENDED'
-  },
-  {
-    title: 'B',
-    type: 'OPEN_ENDED'
-  },
-  {
-    title: 'C',
-    type: 'OPEN_ENDED'
-  }
-];
+import useExam from '../../hooks/useExam';
 
 const ExamPage: React.FC = () => {
   const questionNumber = useQuestionNumber();
   const [away, setAway] = useState<boolean>(false);
+  const { questions } = useExam();
 
   useEffect(() => {
     document.documentElement.addEventListener('mouseleave', () =>
@@ -67,7 +27,7 @@ const ExamPage: React.FC = () => {
       interval = setInterval(() => {
         console.log('away: +3s');
         logEvent({
-          message: 'opustil obrazovku na viac než 3 sekundy.',
+          message: 'opustil/a obrazovku na viac než 3 sekundy.',
           questionNumber
         });
         clearInterval(interval);
@@ -76,7 +36,10 @@ const ExamPage: React.FC = () => {
     return () => clearInterval(interval);
   }, [away]);
 
-  const { title, type, options, points } = questions[questionNumber - 1];
+  const question = questions?.[questionNumber - 1];
+  if (!question?.title) return null;
+
+  const { title, type, options, points } = questions?.[questionNumber - 1];
 
   return (
     <Content>

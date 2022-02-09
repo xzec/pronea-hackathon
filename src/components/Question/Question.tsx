@@ -3,7 +3,8 @@ import { Box, Paper, TextField, Typography } from '@mui/material';
 import { useStyles } from './Question.styles';
 import { IOption, QType } from '../../types';
 import Options from '../Options';
-import useQuestionNumber from "../../hooks/useQuestionNumber";
+import useQuestionNumber from '../../hooks/useQuestionNumber';
+import logEvent from '../../logEvent';
 
 interface QuestionProps {
   title: string;
@@ -23,6 +24,15 @@ const Question: React.FC<QuestionProps> = ({
   const [answer, setAnswer] = useState<string>('');
 
   const handleAnswerChange = (event) => setAnswer(event.target.value);
+
+  const handlePaste = () => {
+    console.log("paste event");
+    logEvent({
+      message: '' +
+        'vložil/a skopírovaný text.',
+      questionNumber
+    });
+  }
 
   return (
     <Paper className={classes.paper}>
@@ -44,6 +54,7 @@ const Question: React.FC<QuestionProps> = ({
             InputProps={{ className: classes.textField }}
             multiline
             fullWidth
+            onPaste={handlePaste}
           />
         )}
       </Box>

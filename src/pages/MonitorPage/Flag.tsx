@@ -13,10 +13,10 @@ const Flag: React.FC<ExamEvent> = ({
     <>
       <ListItem secondaryAction={<FlagOutlined color="warning" />}>
         <ListItemText
-          primary={`${username}, ${new Date(
+          primary={`${username} ${message}`}
+          secondary={`${new Date(
             createdAt
           ).toLocaleTimeString()}, otázka č. ${questionNumber}`}
-          secondary={message}
         />
       </ListItem>
       <Divider />

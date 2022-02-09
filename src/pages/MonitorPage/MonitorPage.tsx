@@ -15,7 +15,7 @@ const MonitorPage: React.FC = () => {
     const eventsRef = ref(db, 'events');
     const unsubscribe = onValue(eventsRef, (snapshot) => {
       const evts = snapshot.val();
-      setEvents(Object.values(evts));
+      setEvents(Object.values(evts || {}));
     });
     return unsubscribe;
   }, []);
@@ -28,7 +28,7 @@ const MonitorPage: React.FC = () => {
         </Content>
       </Box>
       <Box sx={{ width: 300, color: 'white' }}>
-        {events.map((event) => (
+        {events?.map((event) => (
           <Flag key={event.createdAt} {...event} />
         ))}
       </Box>

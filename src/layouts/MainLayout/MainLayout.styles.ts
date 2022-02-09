@@ -30,5 +30,8 @@ export const useStyles = makeStyles(() => ({
   },
   active: {
     fontWeight: '700 !important'
+  },
+  timer: {
+    fontWeight: '700'
   }
 }));

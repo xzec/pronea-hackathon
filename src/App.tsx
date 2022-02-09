@@ -1,10 +1,11 @@
 import { initializeApp } from 'firebase/app';
-import { useParams, useRoutes } from 'react-router-dom';
+import { useRoutes } from 'react-router-dom';
 import routes from './routes';
 import { ThemeProvider } from '@mui/material';
 import theme from '../src/theme';
 import GlobalStyles from './components/GlobalStyles';
 import { StyledEngineProvider } from '@mui/material/styles';
+import { ExamProvider } from './contexts/ExamContext';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCU0FHAVPib7mG43DSu3ZfUJmv7TWAP7JY',
@@ -25,8 +26,10 @@ const App = () => {
   return (
     <StyledEngineProvider injectFirst>
       <ThemeProvider theme={theme}>
-        <GlobalStyles />
-        {routing}
+        <ExamProvider>
+          <GlobalStyles />
+          {routing}
+        </ExamProvider>
       </ThemeProvider>
     </StyledEngineProvider>
   );

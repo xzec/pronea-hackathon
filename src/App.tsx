@@ -1,8 +1,11 @@
 import { useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { Box } from '@mui/material';
+import { Box, Button, Typography } from '@mui/material';
 import { useRoutes } from 'react-router-dom';
 import routes from './routes';
+import { ThemeProvider } from '@mui/material';
+import theme from '../src/theme';
+import GlobalStyles from './components/GlobalStyles';
 
 const firebaseConfig = {
   apiKey: 'AIzaSyCU0FHAVPib7mG43DSu3ZfUJmv7TWAP7JY',
@@ -22,12 +25,18 @@ const App = () => {
   const routing = useRoutes(routes);
 
   return (
-    <Box>
-      <button type="button" onClick={() => setCount((count) => count + 1)}>
-        count is: {count}
-      </button>
-      {routing}
-    </Box>
+    <ThemeProvider theme={theme}>
+      <Box>
+        <GlobalStyles />
+        <Button onClick={() => setCount((count) => count + 1)}>
+          count is: {count}
+        </Button>
+        {routing}
+      </Box>
+      <Typography variant="body1" color="textPrimary">
+        test
+      </Typography>
+    </ThemeProvider>
   );
 };
 

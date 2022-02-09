@@ -21,3 +21,10 @@ export interface ExamEvent {
   username: string;
   createdAt: number;
 };
+
+export interface StudentEvent {
+  message: string;
+  link: string;
+  createdAt: number;
+  actionLabel: string;
+};

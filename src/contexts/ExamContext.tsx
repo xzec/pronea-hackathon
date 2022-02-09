@@ -1,28 +1,33 @@
 import React, { useEffect, useState } from 'react';
-import { getDatabase, ref, child, get } from 'firebase/database';
+import { getDatabase, ref, set, onValue } from 'firebase/database';
 
 const ExamContext = React.createContext({
   questions: [],
+  addQuestion: (newQuestionNumber: number, question: any) => null
 });
 
 export const ExamProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
 
   useEffect(() => {
-    if (questions?.length > 0) return;
-
-    const dbRef = ref(getDatabase());
-    get(child(dbRef, 'questions')).then((snapshot) => {
-      console.log('snap', snapshot.val());
+    const db = getDatabase();
+    const questionsRef = ref(db, 'questions');
+    const unsubscribe = onValue(questionsRef, (snapshot) => {
       if (snapshot.exists()) setQuestions(snapshot.val());
-      else console.log('No data available');
     });
+    return unsubscribe;
   }, []);
+
+  const addQuestion = (newQuestionNumber, question) => {
+    const db = getDatabase();
+    set(ref(db, 'questions/' + newQuestionNumber), question);
+  };
 
   return (
     <ExamContext.Provider
       value={{
-        questions
+        questions,
+        addQuestion
       }}
     >
       {children}

@@ -1,12 +1,28 @@
 import React from 'react';
 import { useStyles } from './Content.styles';
 import { Container } from '@mui/material';
+import clsx from 'clsx';
 
-const Content: React.FC = ({ children }) => {
+interface ContentProps {
+  maxWidth?: string;
+  className?: string;
+  [rest: string]: any;
+}
+
+const Content: React.FC<ContentProps> = ({
+  maxWidth = 'md',
+  className,
+  children,
+  rest
+}) => {
   const classes = useStyles();
 
   return (
-    <Container maxWidth="md" className={classes.container}>
+    <Container
+      maxWidth={maxWidth}
+      className={clsx(classes.container, className)}
+      {...rest}
+    >
       {children}
     </Container>
   );

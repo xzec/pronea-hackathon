@@ -2,7 +2,7 @@ import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { useStyles } from './MainLayout.styles';
 import React from 'react';
 import TopBarLink from './TopBarLink';
-import { useLocation } from 'react-router-dom';
+import { Link as RouterLink } from 'react-router-dom';
 
 interface TopBarProps {
   className?: string;
@@ -11,19 +11,27 @@ interface TopBarProps {
 
 const TopBar = ({ className, ...rest }: TopBarProps) => {
   const classes = useStyles();
-  const { pathname } = useLocation();
 
   return (
     <AppBar className={className} elevation={1} {...rest}>
       <Toolbar className={classes.toolbar}>
-        <Typography variant="h2" component="h2" color="textPrimary">
+        <Typography
+          variant="h2"
+          color="textPrimary"
+          component={RouterLink}
+          to="/exam/1"
+        >
           Testerly
         </Typography>
         <Box flexGrow={1} display="flex" justifyContent="center">
-          {pathname.startsWith('/exam') && <Typography variant="h4" className={classes.timer}>4:45</Typography>}
+          <Typography variant="h4" className={classes.timer}>
+            4:45
+          </Typography>
         </Box>
-        <TopBarLink to="/exam">Študent</TopBarLink>
-        <TopBarLink to="/monitor">Učiteľ</TopBarLink>
+        <TopBarLink to="/exam" activeWhen="/exam/">
+          Študent
+        </TopBarLink>
+        <TopBarLink to="/monitor" activeWhen={["/monitor", "/exam-settings"]}>Učiteľ</TopBarLink>
       </Toolbar>
     </AppBar>
   );

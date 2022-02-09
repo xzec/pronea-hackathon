@@ -1,6 +1,4 @@
-import { useState } from 'react';
 import { initializeApp } from 'firebase/app';
-import { Box, Button, Typography } from '@mui/material';
 import { useRoutes } from 'react-router-dom';
 import routes from './routes';
 import { ThemeProvider } from '@mui/material';
@@ -21,21 +19,12 @@ const firebaseConfig = {
 initializeApp(firebaseConfig);
 
 const App = () => {
-  const [count, setCount] = useState(0);
   const routing = useRoutes(routes);
 
   return (
     <ThemeProvider theme={theme}>
-      <Box>
-        <GlobalStyles />
-        <Button onClick={() => setCount((count) => count + 1)}>
-          count is: {count}
-        </Button>
-        {routing}
-      </Box>
-      <Typography variant="body1" color="textPrimary">
-        test
-      </Typography>
+      <GlobalStyles />
+      {routing}
     </ThemeProvider>
   );
 };

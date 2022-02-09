@@ -9,6 +9,7 @@ specifiers:
   '@types/react': ^17.0.33
   '@types/react-dom': ^17.0.10
   '@vitejs/plugin-react': ^1.0.7
+  clsx: ^1.1.1
   firebase: ^9.6.6
   prettier: ^2.5.1
   react: ^17.0.2
@@ -23,6 +24,7 @@ dependencies:
   '@mui/icons-material': 5.4.1_e1f48b56a62c2aead59c34c0828be441
   '@mui/material': 5.4.1_6226f8758b5b21b5515ad844c1caeb22
   '@mui/styles': 5.4.1_a0c521d4794c7ad97f5f4c1c4a7d5818
+  clsx: 1.1.1
   firebase: 9.6.6
   react: 17.0.2
   react-dom: 17.0.2_react@17.0.2

@@ -1,45 +1,34 @@
-import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { useState } from 'react';
+import { initializeApp } from 'firebase/app';
+import { Box } from '@mui/material';
+import { useRoutes } from 'react-router-dom';
+import routes from './routes';
 
-function App() {
-  const [count, setCount] = useState(0)
+const firebaseConfig = {
+  apiKey: 'AIzaSyCU0FHAVPib7mG43DSu3ZfUJmv7TWAP7JY',
+  authDomain: 'pronea-hackathon.firebaseapp.com',
+  databaseURL:
+    'https://pronea-hackathon-default-rtdb.europe-west1.firebasedatabase.app',
+  projectId: 'pronea-hackathon',
+  storageBucket: 'pronea-hackathon.appspot.com',
+  messagingSenderId: '160994317805',
+  appId: '1:160994317805:web:0b67d63fb71e5ab41c03e4'
+};
+
+initializeApp(firebaseConfig);
+
+const App = () => {
+  const [count, setCount] = useState(0);
+  const routing = useRoutes(routes);
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.tsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
-    </div>
-  )
-}
+    <Box>
+      <button type="button" onClick={() => setCount((count) => count + 1)}>
+        count is: {count}
+      </button>
+      {routing}
+    </Box>
+  );
+};
 
-export default App
+export default App;

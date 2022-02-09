@@ -1,9 +1,10 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import Question from '../../components/Question';
 import Content from '../../components/Content';
 import { IQuestion } from '../../types';
 import useQuestionNumber from '../../hooks/useQuestionNumber';
-import ExamNavigation from "../../components/ExamNavigation";
+import ExamNavigation from '../../components/ExamNavigation';
+import logEvent from '../../logEvent';
 
 const questions: IQuestion[] = [
   {
@@ -48,6 +49,30 @@ const questions: IQuestion[] = [
 
 const ExamPage: React.FC = () => {
   const questionNumber = useQuestionNumber();
+  const [away, setAway] = useState<boolean>(false);
+
+  useEffect(() => {
+    document.documentElement.addEventListener('mouseleave', () =>
+      setAway(true)
+    );
+    document.documentElement.addEventListener('mouseenter', () =>
+      setAway(false)
+    );
+  }, []);
+
+  useEffect(() => {
+    let interval;
+    if (away) {
+      console.log('away: just now');
+      interval = setInterval(() => {
+        console.log("away: +3s");
+        logEvent({ message: 'mouseleave for >3000ms', questionNumber });
+        clearInterval(interval);
+      }, 3000);
+    }
+    else console.log('back');
+    return () => clearInterval(interval);
+  }, [away]);
 
   const { title, type, options, points } = questions[questionNumber - 1];
 

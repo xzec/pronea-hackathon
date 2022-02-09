@@ -1,5 +1,5 @@
 import { initializeApp } from 'firebase/app';
-import { useRoutes } from 'react-router-dom';
+import { useParams, useRoutes } from 'react-router-dom';
 import routes from './routes';
 import { ThemeProvider } from '@mui/material';
 import theme from '../src/theme';

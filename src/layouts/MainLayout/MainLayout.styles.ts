@@ -1,6 +1,7 @@
 import { makeStyles } from '@mui/styles';
+import { Theme } from '@mui/material';
 
-export const useStyles = makeStyles(() => ({
+export const useStyles = makeStyles((theme: Theme) => ({
   root: {
     display: 'flex',
     minHeight: '100%',
@@ -33,5 +34,8 @@ export const useStyles = makeStyles(() => ({
   },
   timer: {
     fontWeight: '700'
+  },
+  bonus: {
+    color: theme.palette.success.main
   }
 }));

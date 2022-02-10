@@ -5,6 +5,7 @@ import useQuestionNumber from '../../hooks/useQuestionNumber';
 import ExamNavigation from '../../components/ExamNavigation';
 import logEvent from '../../logEvent';
 import useExam from '../../hooks/useExam';
+import {Typography} from "@mui/material";
 
 const ExamPage: React.FC = () => {
   const questionNumber = useQuestionNumber();
@@ -23,16 +24,14 @@ const ExamPage: React.FC = () => {
   useEffect(() => {
     let interval;
     if (away) {
-      console.log('away: just now');
       interval = setInterval(() => {
-        console.log('away: +3s');
         logEvent({
           message: 'opustil/a obrazovku na viac než 3 sekundy.',
           questionNumber
         });
         clearInterval(interval);
       }, 3000);
-    } else console.log('back');
+    }
     return () => clearInterval(interval);
   }, [away]);
 
@@ -43,6 +42,9 @@ const ExamPage: React.FC = () => {
 
   return (
     <Content>
+      <Typography variant="h3" color="textPrimary" sx={{ marginBottom: 6 }}>
+        Test z Občianskej výchovy
+      </Typography>
       <Question
         key={title}
         type={type}

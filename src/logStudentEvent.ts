@@ -4,9 +4,10 @@ import { StudentEvent } from './types';
 const logStudentEvent = async ({
   message,
   link = '',
-  actionLabel,
+  actionLabel = '',
   createdAt = Date.now()
 }: Partial<StudentEvent>) => {
+  console.log("creating student event", message, createdAt)
   const db = getDatabase();
   await push(ref(db, 'studentEvents'), {
     message,

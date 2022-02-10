@@ -3,11 +3,22 @@ import { getDatabase, ref, set, onValue } from 'firebase/database';
 
 const ExamContext = React.createContext({
   questions: [],
+  bonusMinutes: 0,
   addQuestion: (newQuestionNumber: number, question: any) => null
 });
 
 export const ExamProvider = ({ children }) => {
   const [questions, setQuestions] = useState([]);
+  const [bonusMinutes, setBonusSeconds] = useState<number>(0);
+
+  useEffect(() => {
+    const db = getDatabase();
+    const bonusMinutesRef = ref(db, 'bonusMinutes');
+    const unsubscribe = onValue(bonusMinutesRef, (snapshot) => {
+      if (snapshot.exists()) setBonusSeconds(snapshot.val());
+    });
+    return unsubscribe;
+  }, []);
 
   useEffect(() => {
     const db = getDatabase();
@@ -27,6 +38,7 @@ export const ExamProvider = ({ children }) => {
     <ExamContext.Provider
       value={{
         questions,
+        bonusMinutes,
         addQuestion
       }}
     >

@@ -8,7 +8,7 @@ import {
   IconButton,
   ListItem,
   ListItemIcon,
-  ListItemText,
+  ListItemText, Paper,
   TextField,
   Tooltip,
   Typography
@@ -16,13 +16,30 @@ import {
 import { Close, Edit } from '@mui/icons-material';
 import { useStyles } from './ExamSettings.styles';
 import logStudentEvent from '../../logStudentEvent';
+import {getDatabase, ref, set} from "firebase/database";
 
 const ExamSettings: React.FC = () => {
+  const classes = useStyles();
   const { addQuestion, questions } = useExam();
   const [question, setQuestion] = useState<string>('');
-  const classes = useStyles();
+  const [extraMinutes, setExtraMinutes] = useState<number>(0);
+  const { bonusMinutes } = useExam();
 
   const handleQuestionChange = (event) => setQuestion(event.target.value);
+
+  const handleTimeChange = (event) => setExtraMinutes(parseInt(event.target.value, 10));
+
+  const handleAdd5 = () => setExtraMinutes((prev) => prev + 5);
+
+  const handleRemove5 = () => setExtraMinutes((prev) => (prev - 5 > 0 ? prev - 5 : 0));
+
+  const handleAddTime = () => {
+    const db = getDatabase();
+    set(ref(db, 'bonusMinutes'), bonusMinutes + extraMinutes);
+    logStudentEvent({
+      message: `Čas bol zvýšený o ${extraMinutes} minút`,
+    });
+  }
 
   const handleSubmit = () => {
     const newQuestionNumber = questions.length;
@@ -41,6 +58,53 @@ const ExamSettings: React.FC = () => {
     <Content>
       <Typography variant="h3" color="textPrimary" paragraph>
         Test z Občianskej výchovy
+      </Typography>
+      <Typography variant="h5" color="textPrimary" paragraph>
+        Nastavenie času
+      </Typography>
+      <Box sx={{ display: "flex", marginBottom: 2 }}>
+      <Paper sx={{ paddingLeft: 2, paddingRight: 2}}>
+        <Box sx={{ display: 'flex', gap: 4, marginTop: 2, marginBottom: 2 }}>
+          <Box sx={{ display: 'flex', gap: 1 }}>
+            <Button
+              className={classes.button}
+              color="secondary"
+              onClick={handleRemove5}
+              variant="outlined"
+            >
+              - 5
+            </Button>
+            <TextField
+              value={extraMinutes}
+              type="number"
+              onChange={handleTimeChange}
+              color="secondary"
+              variant="standard"
+              className={classes.textfield}
+              multiline
+            />
+            <Button
+              className={classes.button}
+              color="secondary"
+              onClick={handleAdd5}
+              variant="outlined"
+            >
+              + 5
+            </Button>
+          </Box>
+          <Button
+            variant="contained"
+            color="secondary"
+            onClick={handleAddTime}
+            disabled={!extraMinutes || extraMinutes === 0}
+          >
+            Zvýšiť čas o&nbsp;{extraMinutes}&nbsp;minút
+          </Button>
+        </Box>
+      </Paper>
+      </Box>
+      <Typography variant="h5" color="textPrimary" paragraph>
+        Otázky
       </Typography>
       {questions.map((question, index) => (
         <Box key={question.title} color="white">
@@ -63,7 +127,7 @@ const ExamSettings: React.FC = () => {
           <Divider />
         </Box>
       ))}
-      <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 6 }}>
+      <Box sx={{ display: 'flex', justifyContent: 'flex-end', alignItems: "center", gap: 2, marginTop: 6, marginBottom: 6 }}>
         <TextField
           value={question}
           onChange={handleQuestionChange}
@@ -71,7 +135,7 @@ const ExamSettings: React.FC = () => {
           multiline
           fullWidth
         />
-        <Button color="secondary" onClick={handleSubmit}>
+        <Button color="secondary" onClick={handleSubmit} variant="contained">
           Pridať
         </Button>
       </Box>

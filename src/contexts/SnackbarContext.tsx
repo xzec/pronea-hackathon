@@ -6,14 +6,20 @@ import {
   query,
   limitToLast
 } from 'firebase/database';
-import { Button, Snackbar } from '@mui/material';
+import { Button, Snackbar, Theme } from '@mui/material';
 import { StudentEvent } from '../types';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
 import { makeStyles } from '@mui/styles';
 
-const useStyles = makeStyles(() => ({
+const useStyles = makeStyles((theme: Theme) => ({
   snackbar: {
-    bottom: 80
+    bottom: 80,
+    '& .MuiSnackbarContent-message': {
+      fontWeight: theme.typography.fontWeightBold
+    }
+  },
+  button: {
+    fontWeight: theme.typography.fontWeightBold
   }
 }));
 
@@ -33,10 +39,7 @@ export const SnackbarProvider = ({ children }) => {
 
   useEffect(() => {
     const db = getDatabase();
-    const studentQuery = query(
-      ref(db, 'studentEvents'),
-      limitToLast(1)
-    );
+    const studentQuery = query(ref(db, 'studentEvents'), limitToLast(1));
 
     const unsubscribe = onValue(studentQuery, (snapshot) => {
       if (snapshot.exists()) {
@@ -58,22 +61,27 @@ export const SnackbarProvider = ({ children }) => {
     <SnackbarContext.Provider value={{}}>
       {children}
       <Snackbar
-        open={Boolean(event && pathname.startsWith('/exam/') && eventOccurences > 1)}
+        open={Boolean(
+          event && pathname.startsWith('/exam/') && eventOccurences > 1
+        )}
         autoHideDuration={6000}
         onClose={handleClose}
         message={event?.message}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
         className={classes.snackbar}
         action={
-          <Button
-            color="secondary"
-            size="small"
-            onClick={handleClose}
-            component={RouterLink}
-            to={event?.link || '/exam'}
-          >
-            {event?.actionLabel}
-          </Button>
+          Boolean(event?.actionLabel) ? (
+            <Button
+              color="secondary"
+              size="small"
+              onClick={handleClose}
+              component={RouterLink}
+              className={classes.button}
+              to={event?.link || '/exam'}
+            >
+              {event?.actionLabel}
+            </Button>
+          ) : null
         }
       />
     </SnackbarContext.Provider>

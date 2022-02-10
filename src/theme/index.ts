@@ -3,7 +3,15 @@ import shadows from './shadows';
 import typography from './typography';
 
 // declare module '@mui/styles' {
-//   interface DefaultTheme extends Theme {}
+//   interface DefaultTheme extends Theme {
+//     palette: {
+//       background: {
+//         default: string,
+//         paper: string,
+//         dark: string,
+//       }
+//     }
+//   }
 // }
 
 const theme = createTheme({
@@ -26,7 +34,7 @@ const theme = createTheme({
     },
     background: {
       default: '#1c1c23',
-      paper: '#2d2d38'
+      paper: '#2d2d38',
     }
   },
   shadows,

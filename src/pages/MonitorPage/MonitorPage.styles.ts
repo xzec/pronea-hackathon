@@ -6,7 +6,21 @@ export const useStyles = makeStyles((theme: Theme) => ({
     display: 'flex'
   },
   content: {
-    paddingTop: theme.spacing(2)
+    paddingTop: theme.spacing(2),
+    overflow: "auto",
+    maxHeight: "calc(100vh - 64px)",
+    scrollbarWidth: 'thin',
+    '&::-webkit-scrollbar': {
+      width: theme.spacing(1),
+      height: theme.spacing(1)
+    },
+    '&::-webkit-scrollbar-track': {
+      backgroundColor: theme.palette.background.default
+    },
+    '&::-webkit-scrollbar-thumb': {
+      backgroundColor: theme.palette.grey[500],
+      borderRadius: theme.spacing(1)
+    },
   },
   notiText: {
     margin: theme.spacing(2, 2)

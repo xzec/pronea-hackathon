@@ -4,7 +4,7 @@ import StudentCard from './StudentCard';
 
 const Cards: React.FC = () => {
   return (
-    <Box sx={{ padding: 2 }}>
+    <Box sx={{ padding: 2, height: "100%" }}>
       <Grid container spacing={4}>
         {[
           {

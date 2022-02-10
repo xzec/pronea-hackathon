@@ -148,7 +148,6 @@ const ExamSettings: React.FC = () => {
             justifyContent: 'flex-end',
             alignItems: 'center',
             gap: 2,
-
             marginBottom: 6
           }}
         >

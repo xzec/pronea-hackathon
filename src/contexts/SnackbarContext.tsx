@@ -6,35 +6,35 @@ import {
   query,
   limitToLast
 } from 'firebase/database';
-import {Button, Snackbar} from '@mui/material';
+import { Button, Snackbar } from '@mui/material';
 import { StudentEvent } from '../types';
 import { Link as RouterLink, useLocation } from 'react-router-dom';
-
 import { makeStyles } from '@mui/styles';
 
 const useStyles = makeStyles(() => ({
   snackbar: {
     bottom: 80
-  },
+  }
 }));
-
 
 const SnackbarContext = React.createContext({});
 
 export const SnackbarProvider = ({ children }) => {
   const classes = useStyles();
   const [event, setEvent] = useState<StudentEvent>();
+  const [eventOccurences, setEventOccurences] = useState<number>(0);
   const { pathname } = useLocation();
 
-  const handleClose = () => {
-    setEvent(null);
-  };
+  const handleClose = () => setEvent(null);
+
+  useEffect(() => {
+    if (event) setEventOccurences((prev) => prev + 1);
+  }, [event]);
 
   useEffect(() => {
     const db = getDatabase();
     const studentQuery = query(
       ref(db, 'studentEvents'),
-      // orderByChild('createdAt'),
       limitToLast(1)
     );
 
@@ -43,8 +43,6 @@ export const SnackbarProvider = ({ children }) => {
         const newEvent: StudentEvent = Object.values(
           snapshot.val()
         )[0] as StudentEvent;
-        console.log(newEvent);
-
         setEvent({
           message: newEvent.message,
           actionLabel: newEvent.actionLabel,
@@ -60,8 +58,8 @@ export const SnackbarProvider = ({ children }) => {
     <SnackbarContext.Provider value={{}}>
       {children}
       <Snackbar
-        open={Boolean(event && pathname.startsWith('/exam/'))}
-        autoHideDuration={60000}
+        open={Boolean(event && pathname.startsWith('/exam/') && eventOccurences > 1)}
+        autoHideDuration={6000}
         onClose={handleClose}
         message={event?.message}
         anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}

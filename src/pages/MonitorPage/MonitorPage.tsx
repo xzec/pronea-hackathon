@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Box, Button, Typography } from '@mui/material';
+import { Box, Button, Hidden, Typography } from '@mui/material';
 import { useStyles } from './MonitorPage.styles';
 import Content from '../../components/Content';
 import { getDatabase, ref, onValue } from 'firebase/database';
@@ -26,15 +26,39 @@ const MonitorPage: React.FC = () => {
     <Box className={classes.container}>
       <Box flexGrow={1}>
         <Content maxWidth="lg" className={classes.content}>
-          <Box sx={{ display: 'flex' }}>
-            <Typography variant="h3" color="textPrimary">
-              Test z Občianskej výchovy
-            </Typography>
-            <Box flexGrow={1} />
-            <Button color="secondary" endIcon={<Settings />} component={RouterLink} to="/exam-settings">
-              Nastavenia
-            </Button>
-          </Box>
+          <Hidden mdUp>
+            <Box >
+              <Typography variant="h3" color="textPrimary" paragraph>
+                Test z Občianskej výchovy
+              </Typography>
+            </Box>
+            <Box sx={{ display: 'flex', justifyContent: 'flex-end', marginTop: 2 }}>
+              <Button
+                color="secondary"
+                endIcon={<Settings />}
+                component={RouterLink}
+                to="/exam-settings"
+              >
+                Nastavenia
+              </Button>
+            </Box>
+          </Hidden>
+          <Hidden mdDown>
+            <Box sx={{ display: 'flex' }}>
+              <Typography variant="h3" color="textPrimary">
+                Test z Občianskej výchovy
+              </Typography>
+              <Box flexGrow={1} />
+              <Button
+                color="secondary"
+                endIcon={<Settings />}
+                component={RouterLink}
+                to="/exam-settings"
+              >
+                Nastavenia
+              </Button>
+            </Box>
+          </Hidden>
         </Content>
       </Box>
       <Box sx={{ width: 300, color: 'white' }}>

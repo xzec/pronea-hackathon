@@ -37,5 +37,8 @@ export const useStyles = makeStyles((theme: Theme) => ({
   },
   bonus: {
     color: theme.palette.success.main
+  },
+  button: {
+    fontSize: "1.5rem",
   }
 }));

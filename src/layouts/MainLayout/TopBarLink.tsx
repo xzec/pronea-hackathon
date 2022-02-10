@@ -22,7 +22,7 @@ const TopBarLink: React.FC<TopBarLinkProps> = ({
       component={RouterLink}
       to={to}
       color="secondary"
-      className={clsx({
+      className={clsx(classes.button, {
         [classes.active]: Array.isArray(activeWhen)
           ? activeWhen.some((path) => pathname.startsWith(path))
           : pathname.startsWith(activeWhen)

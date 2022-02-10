@@ -2,8 +2,7 @@ import { AppBar, Box, Toolbar, Typography } from '@mui/material';
 import { useStyles } from './MainLayout.styles';
 import React, { useEffect, useState } from 'react';
 import TopBarLink from './TopBarLink';
-import { Link as RouterLink } from 'react-router-dom';
-import { getDatabase, onValue, ref } from 'firebase/database';
+import { Link as RouterLink, useLocation } from 'react-router-dom';
 import clsx from 'clsx';
 import useExam from '../../hooks/useExam';
 
@@ -17,6 +16,7 @@ const TopBar = ({ className, ...rest }: TopBarProps) => {
   const [minutes, setMinutes] = useState<number>(0);
   const [seconds, setSeconds] = useState<number>(0);
   const { bonusMinutes } = useExam();
+  const { pathname } = useLocation();
 
   useEffect(() => {
     const countDownDate = new Date();
@@ -58,11 +58,15 @@ const TopBar = ({ className, ...rest }: TopBarProps) => {
             )}`}
           </Typography>
         </Box>
-        <TopBarLink to="/exam" activeWhen="/exam/">
-          Študent
-        </TopBarLink>
-        <TopBarLink to="/monitor" activeWhen={['/monitor', '/exam-settings']}>
-          Učiteľ
+        <TopBarLink
+          to={pathname.startsWith('/exam/') ? '/monitor' : '/exam'}
+          activeWhen={
+            pathname.startsWith('/exam/')
+              ? '/exam/'
+              : ['/monitor', '/exam-settings']
+          }
+        >
+          {pathname.startsWith('/exam/') ? "Študent" : "Učiteľ"}
         </TopBarLink>
       </Toolbar>
     </AppBar>

@@ -8,6 +8,7 @@ import Flag from './Flag';
 import { NotificationsOutlined, Settings } from '@mui/icons-material';
 import { Link as RouterLink } from 'react-router-dom';
 import logStudentEvent from "../../logStudentEvent";
+import Cards from "./Cards";
 
 const MonitorPage: React.FC = () => {
   const classes = useStyles();
@@ -67,6 +68,7 @@ const MonitorPage: React.FC = () => {
               </Button>
             </Box>
           </Hidden>
+          <Cards />
         </Content>
       </Box>
       <Box className={classes.drawer}>

@@ -33,5 +33,14 @@ export const useStyles = makeStyles((theme: Theme) => ({
     maxHeight: `calc(100vh - 121px)`,
     color: 'white',
     overflow: 'auto'
+  },
+  card: {
+    borderRadius: 12,
+  },
+  cardActionArea: {
+    padding: theme.spacing(1, 2),
+  },
+  studentIcon: {
+   fontSize: 64,
   }
 }));
